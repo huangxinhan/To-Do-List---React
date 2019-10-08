@@ -49,16 +49,19 @@ export class ListItemsTable extends Component {
                 this.props.todoList.items[i].key = i; //resetting the keys
             }
         }
-
     }
+
 
     render() {
         return (
             <div id="list_items_container" className='list_item_header_card'>
                 <div className='list_item_header_card'></div>
-                <div className="list_item_task_header">Task</div>
-                <div className="list_item_due_date_header">Due Date</div>
-                <div className="list_item_status_header">Status</div>
+                <div className="list_item_task_header"
+                onClick = {this.props.sortItemsByTask}>Task </div>
+                <div className="list_item_due_date_header"
+                onClick = {this.props.sortItemsByDueDate}>Due Date</div>
+                <div className="list_item_status_header"
+                onClick = {this.props.sortItemsByStatus}>Status</div>
                 {
                     this.props.todoList.items.map((todoItem)=>(
                         <ListItemCard 

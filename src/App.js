@@ -14,7 +14,10 @@ class App extends Component {
   state = {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists, 
-    currentList: null
+    currentList: null,
+    taskCriteria: "increasing",
+    dueDateCriteria: "increasing",
+    completedCriteria: "increasing"
   }
 
   goHome = () => {
@@ -27,6 +30,27 @@ class App extends Component {
     this.setState({currentList: todoListToLoad});
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
+  }
+
+  sortItemsByTask = (e) => {
+    if(this.state.taskCriteria === "increasing"){
+        this.setState({taskCriteria: "decreasing"})
+        console.log(this.state.taskCriteria);
+    }
+    else{
+        this.setState({taskCriteria: "increasing"})
+        console.log(this.state.taskCriteria);
+    }
+
+  }  
+
+  sortItemsByDueDate = (e) => {
+    
+   
+  } 
+
+  sortItemsByStatus = (e) => {
+    
   }
 
   deleteItem = (id) => {
@@ -44,7 +68,10 @@ class App extends Component {
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList}
           deleteItem={this.deleteItem}
-          loadList={this.loadList} />;
+          loadList={this.loadList}
+          sortItemsByTask={this.sortItemsByTask}
+          sortItemsByDueDate={this.sortItemsByDueDate}
+          sortItemsByStatus={this.sortItemsByStatus} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen />;
       default:

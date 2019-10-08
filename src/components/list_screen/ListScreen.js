@@ -31,6 +31,10 @@ export class ListScreen extends Component {
 
     }
 
+    sortItemsByTask = (E) => {
+        alert('k')
+    }
+
     render() {
         return (
             <div id="todo_list">
@@ -55,7 +59,11 @@ export class ListScreen extends Component {
                     </div>
                 </div>
                 <ListItemsTable todoList={this.props.todoList}
-                                loadList={this.props.loadList}/>
+                loadList={this.props.loadList}
+                sortItemsByTask={this.props.sortItemsByTask}
+                sortItemsByDueDate={this.props.sortItemsByDueDate}
+                sortItemsByStatus={this.props.sortItemsByStatus}  
+                                />
             </div>
         )
     }
