@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import moveup from './MoveUp.png'
 import movedown from './MoveDown.png'
 import close from './Close.png' 
-
+import PropTypes from 'prop-types';
 
 
 export class ListItemCard extends Component {
@@ -17,9 +17,19 @@ export class ListItemCard extends Component {
         }
     }
 
+    deleteItem = (e) => {
+        
+    }
+
+    editListInfo = (e) => {
+        //this.props.todoList.name = e.target.value;
+        //alert("oki")
+    }
+
     render() {
         let isCompleted = this.props.listItem.completed;
         let colorClass;
+        let keyNums = this.props.listItem.key;
         let key = this.props.listItem.key.toString();
         let moveUpButton = "list_item_card_moveup" + key;
         let moveDownButton = "list_item_card_movedown" + key;
@@ -31,7 +41,7 @@ export class ListItemCard extends Component {
             colorClass = 'list_item_card_not_completed';
         }
         return (
-            <div className='list_item_card'>
+            <div className='list_item_card' onClick = {this.editListInfo} id={key}>
                 <div className='list_item_card_description'>
                     {this.props.listItem.description}
                 </div>
@@ -45,15 +55,18 @@ export class ListItemCard extends Component {
                     <strong>{this.getCompleted()}</strong>
                 </div>
                 <div className='list_item_card_toolbar'>
-                    <button className='list_item_card_button' id = {moveUpButton}>
+                    <div className='list_item_card_button' id = {moveUpButton}
+                    onClick = {this.props.moveUp.bind(this, {keyNums})}>
                         <img src = {moveup} alt = ""/>
-                    </button>
-                    <button className='list_item_card_button' id = {moveDownButton}>
+                    </div>
+                    <div className='list_item_card_button' id = {moveDownButton}
+                    onClick = {this.props.moveDown.bind(this, {keyNums})}>
                         <img src = {movedown} alt = ""/>
-                    </button>
-                    <button className='list_item_card_button' id = {deleteButton}>
+                    </div>
+                    <div className='list_item_card_button' id = {deleteButton}
+                    onClick = {this.props.deleteItem.bind(this, {keyNums})}>
                         <img src = {close} alt = ""/>
-                    </button>
+                    </div>
                 </div>
 
 

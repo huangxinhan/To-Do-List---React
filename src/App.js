@@ -29,6 +29,10 @@ class App extends Component {
     console.log("currentScreen: " + this.state.currentScreen);
   }
 
+  deleteItem = (id) => {
+    console.log(id);
+  }
+
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
@@ -38,7 +42,9 @@ class App extends Component {
       case AppScreen.LIST_SCREEN:            
         return <ListScreen
           goHome={this.goHome.bind(this)}
-          todoList={this.state.currentList} />;
+          todoList={this.state.currentList}
+          deleteItem={this.deleteItem}
+          loadList={this.loadList} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen />;
       default:
