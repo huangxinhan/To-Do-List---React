@@ -13,7 +13,7 @@ const AppScreen = {
 class App extends Component {
   state = {
     currentScreen: AppScreen.HOME_SCREEN,
-    todoLists: testTodoListData.todoLists,
+    todoLists: testTodoListData.todoLists, 
     currentList: null
   }
 
