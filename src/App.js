@@ -18,7 +18,16 @@ class App extends Component {
     taskCriteria: "increasingTask",
     dueDateCriteria: "increasingDate",
     completedCriteria: "increasingStatus",
-    currentCriteria: null
+    currentCriteria: null,
+    currentIndex: null
+  }
+
+  editItem = (index, e) => {
+    this.setState({currentIndex: index}, this.showItemScreen)
+  }
+
+  showItemScreen = () => {
+    this.setState({currentScreen: AppScreen.ITEM_SCREEN});
   }
 
   goHome = () => {
@@ -156,9 +165,13 @@ class App extends Component {
           loadList={this.loadList}
           sortItemsByTask={this.sortItemsByTask}
           sortItemsByDueDate={this.sortItemsByDueDate}
-          sortItemsByStatus={this.sortItemsByStatus} />;
+          sortItemsByStatus={this.sortItemsByStatus}
+          editItem={this.editItem} />;
       case AppScreen.ITEM_SCREEN:
-        return <ItemScreen />;
+        return <ItemScreen
+          currentItem={this.state.currentList.items[this.state.currentIndex]}
+          loadList={this.loadList}
+          todoList={this.state.currentList} />;
       default:
         return <div>ERROR</div>;
     }

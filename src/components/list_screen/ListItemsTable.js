@@ -51,6 +51,10 @@ export class ListItemsTable extends Component {
         }
     }
 
+    editItem = (e) => {
+        console.log(e)
+    }
+
 
     render() {
         return (
@@ -70,6 +74,7 @@ export class ListItemsTable extends Component {
                             deleteItem={this.deleteItem}
                             moveUp={this.moveUp}
                             moveDown={this.moveDown}
+                            editItem={this.props.editItem}
                             />
                     ))
                 }

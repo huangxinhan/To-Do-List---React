@@ -41,7 +41,7 @@ export class ListItemCard extends Component {
             colorClass = 'list_item_card_not_completed';
         }
         return (
-            <div className='list_item_card' onClick = {this.editListInfo} id={key}>
+            <div className='list_item_card' onClick = {this.props.editItem.bind(this, this.props.listItem.key)} id={key}>
                 <div className='list_item_card_description'>
                     {this.props.listItem.description}
                 </div>
