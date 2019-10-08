@@ -15,9 +15,10 @@ class App extends Component {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists, 
     currentList: null,
-    taskCriteria: "increasing",
-    dueDateCriteria: "increasing",
-    completedCriteria: "increasing"
+    taskCriteria: "increasingTask",
+    dueDateCriteria: "increasingDate",
+    completedCriteria: "increasingStatus",
+    currentCriteria: null
   }
 
   goHome = () => {
@@ -33,29 +34,109 @@ class App extends Component {
   }
 
   sortItemsByTask = (e) => {
-    if(this.state.taskCriteria === "increasing"){
-        this.setState({taskCriteria: "decreasing"})
-        console.log(this.state.taskCriteria);
+    //e.stopPropagation();
+    if(this.state.taskCriteria === "increasingTask"){
+        this.setState({taskCriteria: "decreasingTask"})
+        this.setState({currentCriteria: "decreasingTask"}, this.callback)
+        console.log("after setting state to task, the criteria is" + this.state.currentCriteria);
+
     }
     else{
-        this.setState({taskCriteria: "increasing"})
-        console.log(this.state.taskCriteria);
+        this.setState({taskCriteria: "increasingTask"})
+        this.setState({currentCriteria: "increasingTask"}, this.callback)
+        console.log("after setting state to task, the criteria is" + this.state.currentCriteria);
+
     }
+
 
   }  
 
   sortItemsByDueDate = (e) => {
-    
+    //e.stopPropagation();
+    if(this.state.dueDateCriteria === "increasingDate"){
+      this.setState({dueDateCriteria: "decreasingDate"})
+      this.setState({currentCriteria: "decreasingDate"}, this.callback)
+      console.log("after setting state to date, the criteria is" + this.state.currentCriteria);
+
+    }
+    else{
+      this.setState({dueDateCriteria: "increasingDate"})
+      this.setState({currentCriteria: "increasingDate"}, this.callback)
+      console.log("after setting state to date, the criteria is" + this.state.currentCriteria);
+
+    }
    
   } 
 
   sortItemsByStatus = (e) => {
-    
+    //e.stopPropagation();
+    if(this.state.completedCriteria === "increasingStatus"){
+      this.setState({completedCriteria: "decreasingStatus"})
+      this.setState({currentCriteria: "decreasingStatus"}, this.callback)
+      console.log("after setting state to status, the criteria is" + this.state.currentCriteria);
+
+    }
+    else{
+      this.setState({completedCriteria: "increasingStatus"})
+      this.setState({currentCriteria: "increasingStatus"}, this.callback)
+      console.log("after setting state to status, the criteria is" + this.state.currentCriteria);
+
+    }
+
+  }
+
+  callback = () => {
+    this.state.currentList.items.sort(this.compare);
+    this.loadList(this.state.currentList);
   }
 
   deleteItem = (id) => {
     console.log(id);
   }
+
+  compare = (item1, item2) => {
+    console.log("the current criteria is" + this.state.currentCriteria)
+    // IF IT'S A DECREASING CRITERIA SWAP THE ITEMS
+    if (this.state.currentCriteria === "decreasingTask"
+    ||  this.state.currentCriteria === "decreasingDate"
+    ||  this.state.currentCriteria === "decreasingStatus") {
+        let temp = item1;
+        item1 = item2;
+        item2 = temp;
+    }
+
+    // SORT BY ITEM DESCRIPTION
+    if (this.state.currentCriteria === "increasingTask"
+        || this.state.currentCriteria === "decreasingTask") {
+        if (item1.description < item2.description)
+            return -1;
+        else if (item1.description > item2.description)
+            return 1;
+        else
+            return 0;
+    }
+
+    // SORT BY ITEM DUE DATE
+    if(this.state.currentCriteria === "increasingDate"
+        || this.state.currentCriteria === "decreasingDate"){
+        if(item1.due_date < item2.due_date)
+            return -1;
+        else if (item1.due_date > item2.due_date)
+            return 1;
+        else   
+            return 0;
+    }
+
+    // SORT BY COMPLETED
+    else {
+        if (item1.completed < item2.completed)
+            return -1;
+        else if (item1.completed > item2.completed)
+            return 1;
+        else
+            return 0;
+    }
+}
 
   render() {
     switch(this.state.currentScreen) {
