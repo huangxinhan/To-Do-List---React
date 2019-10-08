@@ -88,6 +88,9 @@ class App extends Component {
   callback = () => {
     this.state.currentList.items.sort(this.compare);
     this.loadList(this.state.currentList);
+    for (var i = 0; i < this.state.currentList.items.length; i++){
+      this.state.currentList.items[i].key = i; //resetting the keys
+  }
   }
 
   deleteItem = (id) => {
@@ -128,7 +131,8 @@ class App extends Component {
     }
 
     // SORT BY COMPLETED
-    else {
+    if(this.state.currentCriteria === "increasingStatus" 
+     ||  this.state.currentCriteria === "decreasingStatus"){
         if (item1.completed < item2.completed)
             return -1;
         else if (item1.completed > item2.completed)
