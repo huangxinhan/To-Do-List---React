@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
+import additem from './AddItem.png'
 
 export class ListItemsTable extends Component {
     render() {
@@ -16,6 +17,9 @@ export class ListItemsTable extends Component {
                             listItem={todoItem} />
                     ))
                 }
+                <div className='list_item_add_card'>
+                    <img src = {additem} alt = ""/>
+                </div>
             </div>
         )
     }
