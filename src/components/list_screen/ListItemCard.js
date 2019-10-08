@@ -56,15 +56,15 @@ export class ListItemCard extends Component {
                 </div>
                 <div className='list_item_card_toolbar'>
                     <div className='list_item_card_button' id = {moveUpButton}
-                    onClick = {this.props.moveUp.bind(this, {keyNums})}>
+                    onClick = {this.props.moveUp.bind(this, this.props.listItem.key)}>
                         <img src = {moveup} alt = ""/>
                     </div>
                     <div className='list_item_card_button' id = {moveDownButton}
-                    onClick = {this.props.moveDown.bind(this, {keyNums})}>
+                    onClick = {this.props.moveDown.bind(this, this.props.listItem.key)}>
                         <img src = {movedown} alt = ""/>
                     </div>
                     <div className='list_item_card_button' id = {deleteButton}
-                    onClick = {this.props.deleteItem.bind(this, {keyNums})}>
+                    onClick = {this.props.deleteItem.bind(this, this.props.listItem.key)}>
                         <img src = {close} alt = ""/>
                     </div>
                 </div>

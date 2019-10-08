@@ -12,17 +12,44 @@ export class ListItemsTable extends Component {
         for (var i = 0; i < this.props.todoList.items.length; i++){
             this.props.todoList.items[i].key = i; //resetting the keys
         }
-
     }
 
     moveUp = (index, e) => {
         e.stopPropagation();
-        alert("going up");
+        var tempItem;
+        if (index == 0){
+            this.props.loadList(this.props.todoList);
+            //disable buttons also go here
+        }
+        else{
+            tempItem = this.props.todoList.items[index-1];
+            this.props.todoList.items[index-1] = this.props.todoList.items[index];
+            this.props.todoList.items[index] = tempItem;
+            this.props.loadList(this.props.todoList);
+            for (var i = 0; i < this.props.todoList.items.length; i++){
+                this.props.todoList.items[i].key = i; //resetting the keys
+            }
+        }
+        //alert("going up");
     }
 
     moveDown = (index, e) => {
         e.stopPropagation();
-        alert("going down");
+        var tempItem;
+        if (index == this.props.todoList.items.length - 1){
+            this.props.loadList(this.props.todoList);
+            //disable buttons also go here
+        }
+        else{
+            tempItem = this.props.todoList.items[index + 1];
+            this.props.todoList.items[index + 1] = this.props.todoList.items[index];
+            this.props.todoList.items[index] = tempItem;
+            this.props.loadList(this.props.todoList);
+            for (var i = 0; i < this.props.todoList.items.length; i++){
+                this.props.todoList.items[i].key = i; //resetting the keys
+            }
+        }
+
     }
 
     render() {
