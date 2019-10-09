@@ -19,6 +19,7 @@ export class ListItemsTable extends Component {
         var tempItem;
         if (index == 0){
             this.props.loadList(this.props.todoList);
+            
             //disable buttons also go here
         }
         else{

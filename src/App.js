@@ -129,11 +129,6 @@ class App extends Component {
     this.loadList(this.state.currentList);
   }
 
-  deleteItem = (id) => {
-    console.log(id);
-  }
-
-  
 
   compare = (item1, item2) => {
     console.log("the current criteria is" + this.state.currentCriteria)
@@ -196,12 +191,25 @@ class App extends Component {
     this.setState({currentList: null});
   }
 
+  newList = () => {
+    var newList = {
+      "key": this.state.todoLists.length,
+      "name": "new todo list",
+      "owner": "Owner",
+      "items": []
+    }
+    this.state.todoLists.push(newList);
+    this.setState({currentList: newList})
+    this.setState({currentScreen: AppScreen.LIST_SCREEN})
+  }
+
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
         return <HomeScreen 
         loadList={this.loadList.bind(this)} 
-        todoLists={this.state.todoLists} />;
+        todoLists={this.state.todoLists}
+        newList={this.newList} />;
       case AppScreen.LIST_SCREEN:            
         return <ListScreen
           goHome={this.goHome.bind(this)}
