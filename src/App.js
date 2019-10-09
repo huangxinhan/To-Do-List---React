@@ -28,6 +28,7 @@ class App extends Component {
   }
 
   togglePopup(){
+    
     this.setState({showPopup: !this.state.showPopup})
   }
 
@@ -85,7 +86,6 @@ class App extends Component {
         console.log("after setting state to task, the criteria is" + this.state.currentCriteria);
 
     }
-
 
   }  
 
