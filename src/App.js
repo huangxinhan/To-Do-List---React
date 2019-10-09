@@ -3,13 +3,15 @@ import testTodoListData from './TestTodoListData.json'
 import HomeScreen from './components/home_screen/HomeScreen'
 import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
-import AddItemScreen from './components/item_screen/AddItemScreen.js';
+import AddItemScreen from './components/item_screen/AddItemScreen.js'
+import PopUp from './components/list_screen/PopUp.js'
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
   LIST_SCREEN: "LIST_SCREEN",
   ITEM_SCREEN: "ITEM_SCREEN",
-  ADD_ITEM_SCREEN: "ADD_ITEM_SCREEN"
+  ADD_ITEM_SCREEN: "ADD_ITEM_SCREEN",
+  POP_UP_SCREEN: "POP_UP_SCREEN"
 }
 
 class App extends Component {
@@ -21,7 +23,12 @@ class App extends Component {
     dueDateCriteria: "increasingDate",
     completedCriteria: "increasingStatus",
     currentCriteria: null,
-    currentIndex: null
+    currentIndex: null,
+    showPopup: false
+  }
+
+  togglePopup(){
+    this.setState({showPopup: !this.state.showPopup})
   }
 
   addNewItem = () => {
@@ -46,6 +53,10 @@ class App extends Component {
 
   showItemScreen = () => {
     this.setState({currentScreen: AppScreen.ITEM_SCREEN});
+  }
+
+  showPopup = () => {
+    this.setState({currentScreen: AppScreen.POP_UP_SCREEN})
   }
 
   goHome = () => {
@@ -122,7 +133,7 @@ class App extends Component {
     console.log(id);
   }
 
-
+  
 
   compare = (item1, item2) => {
     console.log("the current criteria is" + this.state.currentCriteria)
@@ -168,6 +179,22 @@ class App extends Component {
             return 0;
     }
 }
+  deleteList = () => {
+    //alert(this.state.currentList.key)
+    this.state.todoLists.splice(this.state.currentList.key, 1); //remove from array
+    for (var i = 0; i < this.state.todoLists.length; i++){
+      this.state.todoLists[i].key = i; //resetting the keys
+    }
+    this.setState({currentList: null}, this.homeList);
+  }
+
+  homeList = () => {
+    this.setState({currentScreen: AppScreen.HOME_SCREEN});
+  }
+
+  nullList = () => {
+    this.setState({currentList: null});
+  }
 
   render() {
     switch(this.state.currentScreen) {
@@ -185,7 +212,8 @@ class App extends Component {
           sortItemsByDueDate={this.sortItemsByDueDate}
           sortItemsByStatus={this.sortItemsByStatus}
           editItem={this.editItem}
-          addNewItem={this.addNewItem} />;
+          addNewItem={this.addNewItem}
+          showPopup={this.showPopup} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}
@@ -196,8 +224,17 @@ class App extends Component {
           currentItem={this.state.currentList.items[this.state.currentIndex]}
           loadList={this.loadList}
           todoList={this.state.currentList}
-          />
-         
+          />;
+      case AppScreen.POP_UP_SCREEN:
+          return <PopUp
+          text = "Are you sure you want to delete the list?"
+          closePopup={this.loadList}
+          loadList={this.loadList}
+          todoList={this.state.currentList}
+          goHome={this.goHome.bind(this)}
+          deleteList={this.deleteList}
+           />;
+
       default:
         return <div>ERROR</div>;
     }

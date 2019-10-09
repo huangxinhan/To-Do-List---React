@@ -39,11 +39,16 @@ export class ListScreen extends Component {
         alert('k')
     }
 
+    showPopup = (e) => {
+        alert("cool")
+    }
+
     render() {
         return (
             <div id="todo_list">
                 <ListHeading goHome={this.props.goHome} />
-                <ListTrash />
+                <ListTrash
+                showPopup={this.props.showPopup} />
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>

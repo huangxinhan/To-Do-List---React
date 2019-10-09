@@ -125,6 +125,7 @@ body {
   font-weight: normal;
   font-size: 12pt;
 }
+
 .list_item_card_assigned_to {}
 .list_item_card_due_date {}
 .list_item_card_completed {
