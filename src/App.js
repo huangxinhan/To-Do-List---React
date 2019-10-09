@@ -3,11 +3,13 @@ import testTodoListData from './TestTodoListData.json'
 import HomeScreen from './components/home_screen/HomeScreen'
 import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
+import AddItemScreen from './components/item_screen/AddItemScreen.js';
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
   LIST_SCREEN: "LIST_SCREEN",
-  ITEM_SCREEN: "ITEM_SCREEN"
+  ITEM_SCREEN: "ITEM_SCREEN",
+  ADD_ITEM_SCREEN: "ADD_ITEM_SCREEN"
 }
 
 class App extends Component {
@@ -172,6 +174,11 @@ class App extends Component {
           currentItem={this.state.currentList.items[this.state.currentIndex]}
           loadList={this.loadList}
           todoList={this.state.currentList} />;
+      case AppScreen.ADD_ITEM_SCREEN:
+          return <AddItemScreen
+
+          />
+         
       default:
         return <div>ERROR</div>;
     }

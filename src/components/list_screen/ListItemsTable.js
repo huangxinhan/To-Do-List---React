@@ -78,7 +78,8 @@ export class ListItemsTable extends Component {
                             />
                     ))
                 }
-                <div className='list_item_add_card'>
+                <div className='list_item_add_card'
+                    >
                     <img src = {additem} alt = ""/>
                 </div>
             </div>
