@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 
 export class AddItemScreen extends Component {
     state = {
-        currentDescription: this.props.currentItem.description,
-        currentAssignedTo: this.props.currentItem.assigned_to,
-        currentDueDate: this.props.currentItem.due_date,
-        currentCompleted: this.props.currentItem.completed,
-        originalDescription: this.props.currentItem.description,
-        originalAssignedTo: this.props.currentItem.assigned_to,
-        originalDueDate: this.props.currentItem.due_date,
-        originalCompleted: this.props.currentItem.completed
+        currentDescription: null,
+        currentAssignedTo: null,
+        currentDueDate: null,
+        currentCompleted: null
     }
 
     getDescription(){
@@ -47,14 +43,15 @@ export class AddItemScreen extends Component {
     }
 
     returnToList = () => {
+        this.props.todoList.items.pop() //remove from array
         this.props.loadList(this.props.todoList);
     }
 
     confirmChange = () => {
-        //this.props.currentItem.description = this.state.currentDescription;
-        //this.props.currentItem.assigned_to = this.state.currentAssignedTo;
-        //this.props.currentItem.due_date = this.state.currentDueDate;
-        //this.props.currentItem.completed = this.state.currentCompleted;
+        this.props.currentItem.description = this.state.currentDescription;
+        this.props.currentItem.assigned_to = this.state.currentAssignedTo;
+        this.props.currentItem.due_date = this.state.currentDueDate;
+        this.props.currentItem.completed = this.state.currentCompleted;
         this.props.loadList(this.props.todoList);
     }
 

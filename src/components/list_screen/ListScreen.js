@@ -68,6 +68,7 @@ export class ListScreen extends Component {
                 sortItemsByDueDate={this.props.sortItemsByDueDate}
                 sortItemsByStatus={this.props.sortItemsByStatus}
                 editItem={this.props.editItem}  
+                addNewItem={this.props.addNewItem}
                 />
             </div>
         )

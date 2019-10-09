@@ -24,8 +24,24 @@ class App extends Component {
     currentIndex: null
   }
 
+  addNewItem = () => {
+    var newItem = {
+      "key": this.state.currentList.items.length,
+      "description": "",
+      "due_date": "",
+      "assigned_to": "",
+      "completed": false
+    }
+    this.state.currentList.items.push(newItem);
+    this.setState({currentIndex: this.state.currentList.items.length-1}, this.showNewItemScreen);
+  }
+
+  showNewItemScreen = () => {
+    this.setState({currentScreen: AppScreen.ADD_ITEM_SCREEN});
+  }
+
   editItem = (index, e) => {
-    this.setState({currentIndex: index}, this.showItemScreen)
+    this.setState({currentIndex: index}, this.showItemScreen);
   }
 
   showItemScreen = () => {
@@ -91,22 +107,22 @@ class App extends Component {
       this.setState({completedCriteria: "increasingStatus"})
       this.setState({currentCriteria: "increasingStatus"}, this.callback)
       console.log("after setting state to status, the criteria is" + this.state.currentCriteria);
-
     }
-
   }
 
   callback = () => {
     this.state.currentList.items.sort(this.compare);
-    this.loadList(this.state.currentList);
     for (var i = 0; i < this.state.currentList.items.length; i++){
       this.state.currentList.items[i].key = i; //resetting the keys
-  }
+    }
+    this.loadList(this.state.currentList);
   }
 
   deleteItem = (id) => {
     console.log(id);
   }
+
+
 
   compare = (item1, item2) => {
     console.log("the current criteria is" + this.state.currentCriteria)
@@ -168,7 +184,8 @@ class App extends Component {
           sortItemsByTask={this.sortItemsByTask}
           sortItemsByDueDate={this.sortItemsByDueDate}
           sortItemsByStatus={this.sortItemsByStatus}
-          editItem={this.editItem} />;
+          editItem={this.editItem}
+          addNewItem={this.addNewItem} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}
@@ -176,7 +193,9 @@ class App extends Component {
           todoList={this.state.currentList} />;
       case AppScreen.ADD_ITEM_SCREEN:
           return <AddItemScreen
-
+          currentItem={this.state.currentList.items[this.state.currentIndex]}
+          loadList={this.loadList}
+          todoList={this.state.currentList}
           />
          
       default:
