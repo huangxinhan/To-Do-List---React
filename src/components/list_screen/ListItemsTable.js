@@ -17,7 +17,7 @@ export class ListItemsTable extends Component {
     moveUp = (index, e) => {
         e.stopPropagation();
         var tempItem;
-        if (index == 0){
+        if (index === 0){
             this.props.loadList(this.props.todoList);
             
             //disable buttons also go here
@@ -37,7 +37,7 @@ export class ListItemsTable extends Component {
     moveDown = (index, e) => {
         e.stopPropagation();
         var tempItem;
-        if (index == this.props.todoList.items.length - 1){
+        if (index === this.props.todoList.items.length - 1){
             this.props.loadList(this.props.todoList);
             //disable buttons also go here
         }

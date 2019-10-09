@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   togglePopup(){
-    
+
     this.setState({showPopup: !this.state.showPopup})
   }
 
@@ -122,11 +122,19 @@ class App extends Component {
   }
 
   callback = () => {
-    this.state.currentList.items.sort(this.compare);
+    let sortedList = this.state.currentList;
+    sortedList.items.sort(this.compare);
+    for (var i = 0; i < sortedList.items.length; i++){
+      sortedList.items[i].key = i;
+    }
+    this.setState({currentList : sortedList})
+    this.loadList(this.state.currentList);
+
+    /*this.state.currentList.items.sort(this.compare);
     for (var i = 0; i < this.state.currentList.items.length; i++){
       this.state.currentList.items[i].key = i; //resetting the keys
     }
-    this.loadList(this.state.currentList);
+    this.loadList(this.state.currentList);*/
   }
 
 
@@ -175,12 +183,19 @@ class App extends Component {
     }
 }
   deleteList = () => {
-    //alert(this.state.currentList.key)
-    this.state.todoLists.splice(this.state.currentList.key, 1); //remove from array
+    let newTodoLists = this.state.todoLists;
+    newTodoLists.splice(this.state.currentList.key, 1);
+    for (var i = 0; i < newTodoLists.length; i++){
+      newTodoLists[i].key = i;
+    }
+    this.setState({todoLists: newTodoLists});
+    this.setState({currentList: null}, this.homeList);
+
+    /*this.state.todoLists.splice(this.state.currentList.key, 1); //remove from array
     for (var i = 0; i < this.state.todoLists.length; i++){
       this.state.todoLists[i].key = i; //resetting the keys
     }
-    this.setState({currentList: null}, this.homeList);
+    this.setState({currentList: null}, this.homeList);*/
   }
 
   homeList = () => {
