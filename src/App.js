@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   togglePopup(){
-
     this.setState({showPopup: !this.state.showPopup})
   }
 

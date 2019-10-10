@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 export class ListScreen extends Component {
     getListName() {
@@ -21,6 +21,9 @@ export class ListScreen extends Component {
     }
 
     changeName = (e) => {
+        //var tps = new jTPS();
+        //transaction = new changeName_Transaction(this.props.todoList.name, e.target.value);
+        //tps.addTransaction(transaction);
         //this.setState({inputValue: e.target.value});
         this.props.todoList.name = e.target.value;
     }
