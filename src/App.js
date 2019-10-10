@@ -5,6 +5,8 @@ import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
 import AddItemScreen from './components/item_screen/AddItemScreen.js'
 import PopUp from './components/list_screen/PopUp.js'
+import jsTPS from './JsTps/jTPS.js'
+import changeName_Transaction from "./JsTps/changeName_Transaction.js"
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
@@ -24,7 +26,9 @@ class App extends Component {
     completedCriteria: "increasingStatus",
     currentCriteria: null,
     currentIndex: null,
-    showPopup: false
+    showPopup: false,
+    transactionStack: jsTPS,
+    changeNameTransaction: changeName_Transaction
   }
 
   togglePopup(){
@@ -235,7 +239,9 @@ class App extends Component {
           sortItemsByStatus={this.sortItemsByStatus}
           editItem={this.editItem}
           addNewItem={this.addNewItem}
-          showPopup={this.showPopup} />;
+          showPopup={this.showPopup}
+          transactionStack={this.state.transactionStack}
+          changeNameTransaction={this.state.changeNameTransaction} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}

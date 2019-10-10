@@ -21,7 +21,12 @@ export class ListScreen extends Component {
     }
 
     changeName = (e) => {
-        //var tps = new jTPS();
+        this.props.changeNameTransaction.todoList = this.props.todoList;
+        this.props.changeNameTransaction.initName = this.props.todoList.name;
+        this.props.changeNameTransaction.changedName = e.target.value;
+        
+        //this.props.transactionStack.prototype.addTransaction(this.props.changeNameTransaction);
+        //let transaction = new ChangeName_Transaction(this.props.todoList, this.props.todoList.name, e.target.value);
         //transaction = new changeName_Transaction(this.props.todoList.name, e.target.value);
         //tps.addTransaction(transaction);
         //this.setState({inputValue: e.target.value});
