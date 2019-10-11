@@ -12,8 +12,13 @@ export class changeName_Transaction extends Component{
      }
     
      doTransaction(){
-        this.todoList.name = this.changedName;
-     }
+        if(!this.changedName.replace(/\s/g, '').length){
+         this.todoList.name = "New TodoList"
+        }
+        else{
+         this.todoList.name = this.changedName;
+        }
+      }
 
      undoTransaction(){
         this.todoList.name = this.initName;
