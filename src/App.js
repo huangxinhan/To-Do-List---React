@@ -5,7 +5,7 @@ import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
 import AddItemScreen from './components/item_screen/AddItemScreen.js'
 import PopUp from './components/list_screen/PopUp.js'
-import jsTPS from './JsTps/jTPS.js'
+import jsTPS, { jTPS } from './JsTps/jTPS.js'
 import changeName_Transaction from "./JsTps/changeName_Transaction.js"
 
 const AppScreen = {
@@ -221,6 +221,28 @@ class App extends Component {
     this.setState({currentScreen: AppScreen.LIST_SCREEN})
   }
 
+  transactionStack = new jTPS();
+
+  componentDidMount(){
+    document.addEventListener("keydown", this.control)
+  }
+
+  control = (e) => {
+    if(e.keyCode === 90 && e.ctrlKey){
+      this.transactionStack.undoTransaction();
+    }
+    if(e.keyCode === 89 && e.ctrlKey){
+      this.transactionStack.doTransaction();
+    }
+  }
+
+  changeName = (e) => {
+    var changeNameTransaction = new changeName_Transaction(this.state.currentList, this.state.currentList.name, e.target.value);
+    this.transactionStack.addTransaction(changeNameTransaction);
+  }
+
+
+
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
@@ -240,6 +262,7 @@ class App extends Component {
           editItem={this.editItem}
           addNewItem={this.addNewItem}
           showPopup={this.showPopup}
+          changeName={this.changeName}
           transactionStack={this.state.transactionStack}
           changeNameTransaction={this.state.changeNameTransaction} />;
       case AppScreen.ITEM_SCREEN:

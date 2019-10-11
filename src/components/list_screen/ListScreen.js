@@ -21,15 +21,18 @@ export class ListScreen extends Component {
     }
 
     changeName = (e) => {
-        this.props.changeNameTransaction.todoList = this.props.todoList;
-        this.props.changeNameTransaction.initName = this.props.todoList.name;
-        this.props.changeNameTransaction.changedName = e.target.value;
-        
+        //this.props.changeNameTransaction.todoList = this.props.todoList;
+        //this.props.changeNameTransaction.initName = this.props.todoList.name;
+        //this.props.changeNameTransaction.changedName = e.target.value;
+
+        //this.props.transactionStack.addTransaction(this.props.changeNameTransaction);
         //this.props.transactionStack.prototype.addTransaction(this.props.changeNameTransaction);
         //let transaction = new ChangeName_Transaction(this.props.todoList, this.props.todoList.name, e.target.value);
         //transaction = new changeName_Transaction(this.props.todoList.name, e.target.value);
         //tps.addTransaction(transaction);
         //this.setState({inputValue: e.target.value});
+
+        //this.props.changeName.bind(this);
         this.props.todoList.name = e.target.value;
     }
 
@@ -63,7 +66,7 @@ export class ListScreen extends Component {
                         <input 
                             defaultValue={this.getListName()} 
                             type="text" 
-                            onChange={this.changeName}
+                            onChange={this.props.changeName.bind(this)}
                             id="list_name_textfield" />
                     </div>
                     <div id="list_details_owner_container" className="text_toolbar">

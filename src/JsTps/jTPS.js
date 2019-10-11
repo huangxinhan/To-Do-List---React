@@ -4,9 +4,15 @@
  * application. Note that one must specify all work done via 
  * custom transactions 
  */
-class jTPS{
+
+import React, { Component } from 'react';
+
+export class jTPS extends Component{
     //The transaction stack in the constructor 
+
+
     constructor(){
+        super()
         this.transactions = [] //This stack keeps track of all the transactions
         this.mostRecentTransaction = -1; //Keeps track of where we are in the stack
         this.performingDo = false; //These can be turned on an off to signify Do or undo
@@ -191,3 +197,5 @@ class jTPS{
      }
 
 }
+
+export default jTPS;
