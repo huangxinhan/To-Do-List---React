@@ -9,6 +9,7 @@ import jsTPS, { jTPS } from './JsTps/jTPS.js'
 import changeName_Transaction from "./JsTps/changeName_Transaction.js"
 import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js'
 import changeOrder_Transaction from './JsTps/changeOrder_Transaction.js'
+import deleteItem_Transaction from './JsTps/deleteItem_Transaction.js'
 import { XMLNS_1_0 } from 'xmlchars';
 
 const AppScreen = {
@@ -264,8 +265,16 @@ class App extends Component {
 
   moveDown = (index, e) => {
     e.stopPropagation();
-    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index+1, "down")
+    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index+1, "down");
     this.transactionStack.addTransaction(changeOrderTransaction);
+    this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  }
+
+  deleteItem = (index, e) => {
+    e.stopPropagation();
+    var deleteItemTransaction = new deleteItem_Transaction(this.state.currentList, this.state.currentList.items[index], index);
+    this.transactionStack.addTransaction(deleteItemTransaction);
     this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
   }
@@ -294,7 +303,8 @@ class App extends Component {
           transactionStack={this.state.transactionStack}
           changeNameTransaction={this.state.changeNameTransaction}
           moveUp={this.moveUp}
-          moveDown={this.moveDown} />;
+          moveDown={this.moveDown}
+          deleteItem={this.deleteItem} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}

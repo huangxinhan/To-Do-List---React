@@ -44,8 +44,6 @@ export class changeOrder_Transaction extends Component{
             }
         }
 
-
-
      }
 
      undoTransaction(){

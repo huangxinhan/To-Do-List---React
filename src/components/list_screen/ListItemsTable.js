@@ -71,7 +71,7 @@ export class ListItemsTable extends Component {
                         <ListItemCard 
                             key={todoItem.key}
                             listItem={todoItem}
-                            deleteItem={this.deleteItem}
+                            deleteItem={this.props.deleteItem}
                             moveUp={this.props.moveUp}
                             moveDown={this.props.moveDown}
                             editItem={this.props.editItem}
