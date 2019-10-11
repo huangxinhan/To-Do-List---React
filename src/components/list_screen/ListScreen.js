@@ -66,7 +66,7 @@ export class ListScreen extends Component {
                         <input 
                             defaultValue={this.getListName()} 
                             type="text" 
-                            onChange={this.props.changeName.bind(this)}
+                            onBlur={this.props.changeName.bind(this)}
                             id="list_name_textfield" />
                     </div>
                     <div id="list_details_owner_container" className="text_toolbar">
@@ -74,7 +74,7 @@ export class ListScreen extends Component {
                         <input 
                             defaultValue={this.getListOwner()}
                             type="text" 
-                            onChange={this.changeOwner}
+                            onBlur={this.props.changeOwner.bind(this)}
                             id="list_owner_textfield" />
                     </div>
                 </div>

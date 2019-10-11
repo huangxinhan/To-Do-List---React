@@ -7,6 +7,7 @@ import AddItemScreen from './components/item_screen/AddItemScreen.js'
 import PopUp from './components/list_screen/PopUp.js'
 import jsTPS, { jTPS } from './JsTps/jTPS.js'
 import changeName_Transaction from "./JsTps/changeName_Transaction.js"
+import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js';
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
@@ -30,6 +31,8 @@ class App extends Component {
     transactionStack: jsTPS,
     changeNameTransaction: changeName_Transaction
   }
+
+  transactionStack = new jTPS();
 
   togglePopup(){
     this.setState({showPopup: !this.state.showPopup})
@@ -66,6 +69,7 @@ class App extends Component {
   goHome = () => {
     this.setState({currentScreen: AppScreen.HOME_SCREEN});
     this.setState({currentList: null});
+    this.transactionStack.clearAllTransactions();
   }
 
   loadList = (todoListToLoad) => {
@@ -221,7 +225,6 @@ class App extends Component {
     this.setState({currentScreen: AppScreen.LIST_SCREEN})
   }
 
-  transactionStack = new jTPS();
 
   componentDidMount(){
     document.addEventListener("keydown", this.control)
@@ -230,9 +233,13 @@ class App extends Component {
   control = (e) => {
     if(e.keyCode === 90 && e.ctrlKey){
       this.transactionStack.undoTransaction();
+      this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+      this.setState({currentScreen: AppScreen.LIST_SCREEN});
     }
     if(e.keyCode === 89 && e.ctrlKey){
       this.transactionStack.doTransaction();
+      this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+      this.setState({currentScreen: AppScreen.LIST_SCREEN});
     }
   }
 
@@ -240,6 +247,12 @@ class App extends Component {
     var changeNameTransaction = new changeName_Transaction(this.state.currentList, this.state.currentList.name, e.target.value);
     this.transactionStack.addTransaction(changeNameTransaction);
   }
+
+  changeOwner = (e) => {
+    var changeOwnerTransaction = new changeOwner_Transaction(this.state.currentList, this.state.currentList.owner, e.target.value);
+    this.transactionStack.addTransaction(changeOwnerTransaction);
+  }
+
 
 
 
@@ -263,6 +276,7 @@ class App extends Component {
           addNewItem={this.addNewItem}
           showPopup={this.showPopup}
           changeName={this.changeName}
+          changeOwner={this.changeOwner}
           transactionStack={this.state.transactionStack}
           changeNameTransaction={this.state.changeNameTransaction} />;
       case AppScreen.ITEM_SCREEN:
