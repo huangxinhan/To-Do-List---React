@@ -10,6 +10,7 @@ import changeName_Transaction from "./JsTps/changeName_Transaction.js"
 import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js'
 import changeOrder_Transaction from './JsTps/changeOrder_Transaction.js'
 import deleteItem_Transaction from './JsTps/deleteItem_Transaction.js'
+import changeItem_Transaction from './JsTps/changeItem_Transaction'
 import { XMLNS_1_0 } from 'xmlchars';
 
 const AppScreen = {
@@ -32,7 +33,11 @@ class App extends Component {
     currentIndex: null,
     showPopup: false,
     transactionStack: jsTPS,
-    changeNameTransaction: changeName_Transaction
+    changeNameTransaction: changeName_Transaction,
+    currentDescription: null,
+    currentAssignedTo: null,
+    currentDueDate: null,
+    currentCompleted: null
   }
 
   transactionStack = new jTPS();
@@ -62,6 +67,10 @@ class App extends Component {
   }
 
   showItemScreen = () => {
+    this.setState({currentDescription: this.state.currentList.items[this.state.currentIndex].description})
+    this.setState({currentAssignedTo: this.state.currentList.items[this.state.currentIndex].assigned_to})
+    this.setState({currentDueDate: this.state.currentList.items[this.state.currentIndex].due_date})
+    this.setState({currentCompleted: this.state.currentList.items[this.state.currentIndex].completed})
     this.setState({currentScreen: AppScreen.ITEM_SCREEN});
   }
 
@@ -279,6 +288,28 @@ class App extends Component {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
   }
 
+  confirmChange = () => {
+    var changeItemTransaction = new changeItem_Transaction(this.state.currentList.items[this.state.currentIndex], this.state.currentDescription, this.state.currentAssignedTo, this.state.currentDueDate, this.state.currentCompleted);
+    this.transactionStack.addTransaction(changeItemTransaction);
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  }
+
+  changeDescription = (e) =>{
+    this.setState({currentDescription: e.target.value})
+  }
+
+  changeAssignedTo = (e) =>{
+    this.setState({currentAssignedTo: e.target.value})
+  }
+
+  changeDueDate = (e) =>{
+    this.setState({currentDueDate: e.target.value})
+  }
+
+  changeCompleted = (e) => {
+    this.setState({currentCompleted: e.target.value})
+  }
+
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
@@ -309,7 +340,17 @@ class App extends Component {
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}
           loadList={this.loadList}
-          todoList={this.state.currentList} />;
+          todoList={this.state.currentList}
+          currentDescription={this.state.currentDescription}
+          currentAssignedTo={this.state.currentAssignedTo}
+          currentDueDate={this.state.currentDueDate}
+          currentCompleted={this.state.currentCompleted}
+          confirmChange={this.confirmChange}
+          changeDescription={this.changeDescription}
+          changeAssignedTo={this.changeAssignedTo}
+          changeDueDate={this.changeDueDate}
+          changeCompleted={this.changeCompleted}
+          />;
       case AppScreen.ADD_ITEM_SCREEN:
           return <AddItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}

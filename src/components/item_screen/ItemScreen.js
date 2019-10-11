@@ -22,20 +22,24 @@ export class ItemScreen extends Component {
     }
 
     changeDescription = (e) =>{
-        this.setState({currentDescription: e.target.value})
+        //this.setState({currentDescription: e.target.value})
+        this.props.currentDescription = e.target.value;
         //this.props.currentItem.description = e.target.value;
     }
 
     changeAssignedTo = (e) =>{
-        this.setState({currentAssignedTo: e.target.value})
+        //this.setState({currentAssignedTo: e.target.value})
+        this.props.currentAssignedTo = e.target.value;
     }
 
     changeDueDate = (e) =>{
-        this.setState({currentDueDate: e.target.value})
+        //this.setState({currentDueDate: e.target.value})
+        this.props.currentDueDate = e.target.value;
     }
 
     changeCompleted = (e) =>{
-        this.setState({currentCompleted: e.target.checked})
+        //this.setState({currentCompleted: e.target.checked})
+        this.props.currentCompleted = e.target.value;
     }
 
 
@@ -85,29 +89,29 @@ export class ItemScreen extends Component {
                 <strong>Description</strong>
                 <input type="text" id="item_description_textfield"
                 defaultValue={this.getDescription()}
-                onChange={this.changeDescription}></input>
+                onChange={this.props.changeDescription.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Assigned To</strong>
                 <input type="text" id="item_assigned_to_textfield"
                 defaultValue={this.getAssignedTo()}
-                onChange={this.changeAssignedTo}></input>
+                onChange={this.props.changeAssignedTo.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Due Date</strong>
                 <input type="date" id="item_due_date_picker"
                 defaultValue={this.getDueDate()}
-                onChange={this.changeDueDate}></input>
+                onChange={this.props.changeDueDate.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Completed</strong>
                 <input type="checkbox" id="item_completed_checkbox"
                 defaultChecked={this.getCompleted()}
-                onClick={this.changeCompleted}></input>
+                onClick={this.props.changeCompleted.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <button id="item_form_submit_button"
-                onClick={this.confirmChange}>Submit</button>
+                onClick={this.props.confirmChange}>Submit</button>
                 <button id="item_form_cancel_button"
                 onClick={this.returnToList}>Cancel</button>
             </div>
