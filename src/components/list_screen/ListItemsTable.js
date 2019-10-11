@@ -73,7 +73,7 @@ export class ListItemsTable extends Component {
                             listItem={todoItem}
                             deleteItem={this.deleteItem}
                             moveUp={this.props.moveUp}
-                            moveDown={this.moveDown}
+                            moveDown={this.props.moveDown}
                             editItem={this.props.editItem}
                             todoList={this.props.todoList}
                             />

@@ -256,7 +256,15 @@ class App extends Component {
 
   moveUp = (index, e) => {
     e.stopPropagation();
-    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index-1);
+    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index-1, "up");
+    this.transactionStack.addTransaction(changeOrderTransaction);
+    this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  }
+
+  moveDown = (index, e) => {
+    e.stopPropagation();
+    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index+1, "down")
     this.transactionStack.addTransaction(changeOrderTransaction);
     this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
@@ -285,7 +293,8 @@ class App extends Component {
           changeOwner={this.changeOwner}
           transactionStack={this.state.transactionStack}
           changeNameTransaction={this.state.changeNameTransaction}
-          moveUp={this.moveUp} />;
+          moveUp={this.moveUp}
+          moveDown={this.moveDown} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}

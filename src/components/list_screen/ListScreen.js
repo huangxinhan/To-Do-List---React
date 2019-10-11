@@ -86,6 +86,7 @@ export class ListScreen extends Component {
                 editItem={this.props.editItem}  
                 addNewItem={this.props.addNewItem}
                 moveUp={this.props.moveUp}
+                moveDown={this.props.moveDown}
                 />
             </div>
         )
