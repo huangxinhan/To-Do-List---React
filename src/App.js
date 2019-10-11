@@ -247,12 +247,12 @@ class App extends Component {
   }
 
   control = (e) => {
-    if(e.keyCode === 90 && e.ctrlKey){
+    if(e.keyCode === 90 && e.ctrlKey && this.state.currentList){
       this.transactionStack.undoTransaction();
       this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
       this.setState({currentScreen: AppScreen.LIST_SCREEN});
     }
-    if(e.keyCode === 89 && e.ctrlKey){
+    if(e.keyCode === 89 && e.ctrlKey && this.state.currentList){
       this.transactionStack.doTransaction();
       this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
       this.setState({currentScreen: AppScreen.LIST_SCREEN});
