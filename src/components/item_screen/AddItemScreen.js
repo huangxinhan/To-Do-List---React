@@ -43,7 +43,7 @@ export class AddItemScreen extends Component {
     }
 
     returnToList = () => {
-        this.props.todoList.items.pop() //remove from array
+        //this.props.todoList.items.pop() //remove from array
         this.props.loadList(this.props.todoList);
     }
 
@@ -65,29 +65,29 @@ export class AddItemScreen extends Component {
                 <strong>Description</strong>
                 <input type="text" id="item_description_textfield"
                 defaultValue={this.getDescription()}
-                onChange={this.changeDescription}></input>
+                onChange={this.props.changeDescription1.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Assigned To</strong>
                 <input type="text" id="item_assigned_to_textfield"
                 defaultValue={this.getAssignedTo()}
-                onChange={this.changeAssignedTo}></input>
+                onChange={this.props.changeAssignedTo1.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Due Date</strong>
                 <input type="date" id="item_due_date_picker"
                 defaultValue={this.getDueDate()}
-                onChange={this.changeDueDate}></input>
+                onChange={this.props.changeDueDate1.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <strong>Completed</strong>
                 <input type="checkbox" id="item_completed_checkbox"
                 defaultChecked={this.getCompleted()}
-                onClick={this.changeCompleted}></input>
+                onClick={this.props.changeCompleted1.bind(this)}></input>
                 <br></br>
                 <br></br>
                 <button id="item_form_submit_button"
-                onClick={this.confirmChange}>Submit</button>
+                onClick={this.props.confirmAdd}>Submit</button>
                 <button id="item_form_cancel_button"
                 onClick={this.returnToList}>Cancel</button>
             </div>

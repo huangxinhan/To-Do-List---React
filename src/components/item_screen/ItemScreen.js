@@ -39,7 +39,7 @@ export class ItemScreen extends Component {
 
     changeCompleted = (e) =>{
         //this.setState({currentCompleted: e.target.checked})
-        this.props.currentCompleted = e.target.value;
+        this.props.currentCompleted = e.target.checked;
     }
 
 

@@ -10,7 +10,8 @@ import changeName_Transaction from "./JsTps/changeName_Transaction.js"
 import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js'
 import changeOrder_Transaction from './JsTps/changeOrder_Transaction.js'
 import deleteItem_Transaction from './JsTps/deleteItem_Transaction.js'
-import changeItem_Transaction from './JsTps/changeItem_Transaction'
+import changeItem_Transaction from './JsTps/changeItem_Transaction.js'
+import addItem_Transaction from './JsTps/addItem_Transaction.js'
 import { XMLNS_1_0 } from 'xmlchars';
 
 const AppScreen = {
@@ -37,7 +38,11 @@ class App extends Component {
     currentDescription: null,
     currentAssignedTo: null,
     currentDueDate: null,
-    currentCompleted: null
+    currentCompleted: null,
+    newDescription: "",
+    newAssignedTo: "",
+    newDueDate: "",
+    newCompleted: false,
   }
 
   transactionStack = new jTPS();
@@ -47,14 +52,14 @@ class App extends Component {
   }
 
   addNewItem = () => {
-    var newItem = {
+    /*var newItem = {
       "key": this.state.currentList.items.length,
       "description": "",
       "due_date": "",
       "assigned_to": "",
       "completed": false
     }
-    this.state.currentList.items.push(newItem);
+    this.state.currentList.items.push(newItem);*/
     this.setState({currentIndex: this.state.currentList.items.length-1}, this.showNewItemScreen);
   }
 
@@ -294,6 +299,12 @@ class App extends Component {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
   }
 
+  confirmAdd = () => {
+    var addItemTransaction = new addItem_Transaction(this.state.currentList, this.state.newDescription, this.state.newAssignedTo, this.state.newDueDate, this.state.newCompleted);
+    this.transactionStack.addTransaction(addItemTransaction);
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  }
+
   changeDescription = (e) =>{
     this.setState({currentDescription: e.target.value})
   }
@@ -307,7 +318,23 @@ class App extends Component {
   }
 
   changeCompleted = (e) => {
-    this.setState({currentCompleted: e.target.value})
+    this.setState({currentCompleted: e.target.checked})
+  }
+
+  changeDescription1 = (e) =>{
+    this.setState({newDescription: e.target.value})
+  }
+
+  changeAssignedTo1 = (e) =>{
+    this.setState({newAssignedTo: e.target.value})
+  }
+
+  changeDueDate1 = (e) =>{
+    this.setState({newDueDate: e.target.value})
+  }
+
+  changeCompleted1 = (e) => {
+    this.setState({newCompleted: e.target.checked})
   }
 
   render() {
@@ -356,6 +383,11 @@ class App extends Component {
           currentItem={this.state.currentList.items[this.state.currentIndex]}
           loadList={this.loadList}
           todoList={this.state.currentList}
+          confirmAdd={this.confirmAdd}
+          changeDescription1={this.changeDescription1}
+          changeAssignedTo1={this.changeAssignedTo1}
+          changeDueDate1={this.changeDueDate1}
+          changeCompleted1={this.changeCompleted1}
           />;
       case AppScreen.POP_UP_SCREEN:
           return <PopUp
