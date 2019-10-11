@@ -303,6 +303,10 @@ class App extends Component {
     var addItemTransaction = new addItem_Transaction(this.state.currentList, this.state.newDescription, this.state.newAssignedTo, this.state.newDueDate, this.state.newCompleted);
     this.transactionStack.addTransaction(addItemTransaction);
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
+    this.setState({newDescription: ""})
+    this.setState({newAssignedTo: ""})
+    this.setState({newDueDate: ""})
+    this.setState({newCompleted: false})
   }
 
   changeDescription = (e) =>{
