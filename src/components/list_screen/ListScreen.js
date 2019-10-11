@@ -85,6 +85,7 @@ export class ListScreen extends Component {
                 sortItemsByStatus={this.props.sortItemsByStatus}
                 editItem={this.props.editItem}  
                 addNewItem={this.props.addNewItem}
+                moveUp={this.props.moveUp}
                 />
             </div>
         )

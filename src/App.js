@@ -7,7 +7,9 @@ import AddItemScreen from './components/item_screen/AddItemScreen.js'
 import PopUp from './components/list_screen/PopUp.js'
 import jsTPS, { jTPS } from './JsTps/jTPS.js'
 import changeName_Transaction from "./JsTps/changeName_Transaction.js"
-import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js';
+import changeOwner_Transaction from './JsTps/changeOwner_Transaction.js'
+import changeOrder_Transaction from './JsTps/changeOrder_Transaction.js'
+import { XMLNS_1_0 } from 'xmlchars';
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
@@ -225,7 +227,6 @@ class App extends Component {
     this.setState({currentScreen: AppScreen.LIST_SCREEN})
   }
 
-
   componentDidMount(){
     document.addEventListener("keydown", this.control)
   }
@@ -253,8 +254,13 @@ class App extends Component {
     this.transactionStack.addTransaction(changeOwnerTransaction);
   }
 
-
-
+  moveUp = (index, e) => {
+    e.stopPropagation();
+    var changeOrderTransaction = new changeOrder_Transaction(this.state.currentList, index, index-1);
+    this.transactionStack.addTransaction(changeOrderTransaction);
+    this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
+  }
 
   render() {
     switch(this.state.currentScreen) {
@@ -278,7 +284,8 @@ class App extends Component {
           changeName={this.changeName}
           changeOwner={this.changeOwner}
           transactionStack={this.state.transactionStack}
-          changeNameTransaction={this.state.changeNameTransaction} />;
+          changeNameTransaction={this.state.changeNameTransaction}
+          moveUp={this.moveUp} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
           currentItem={this.state.currentList.items[this.state.currentIndex]}
