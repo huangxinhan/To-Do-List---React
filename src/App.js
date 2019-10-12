@@ -12,6 +12,7 @@ import changeOrder_Transaction from './JsTps/changeOrder_Transaction.js'
 import deleteItem_Transaction from './JsTps/deleteItem_Transaction.js'
 import changeItem_Transaction from './JsTps/changeItem_Transaction.js'
 import addItem_Transaction from './JsTps/addItem_Transaction.js'
+import sort_Transactions from "./JsTps/sort_Transactions.js"
 import { XMLNS_1_0 } from 'xmlchars';
 
 const AppScreen = {
@@ -91,7 +92,15 @@ class App extends Component {
 
   loadList = (todoListToLoad) => {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
+    var newtodoList = this.state.todoLists;
+    newtodoList.splice(todoListToLoad.key, 1); //Remove from the list first
+    newtodoList.unshift(todoListToLoad); //Then push it to the top of the list 
+    for (var i = 0; i < newtodoList.length; i++){
+      newtodoList[i].key = i;
+    }
+    this.setState({todoLists: newtodoList})
     this.setState({currentList: todoListToLoad});
+
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }
@@ -146,19 +155,24 @@ class App extends Component {
   }
 
   callback = () => {
-    let sortedList = this.state.currentList;
+    /*let sortedList = this.state.currentList;
     sortedList.items.sort(this.compare);
     for (var i = 0; i < sortedList.items.length; i++){
       sortedList.items[i].key = i;
     }
     this.setState({currentList : sortedList})
-    this.loadList(this.state.currentList);
+    this.loadList(this.state.currentList);*/
 
     /*this.state.currentList.items.sort(this.compare);
     for (var i = 0; i < this.state.currentList.items.length; i++){
       this.state.currentList.items[i].key = i; //resetting the keys
     }
     this.loadList(this.state.currentList);*/
+  
+    var sortItemTransaction = new sort_Transactions(this.state.currentList, this.state.currentCriteria)
+    this.transactionStack.addTransaction(sortItemTransaction);
+    this.setState({currentScreen: AppScreen.POP_UP_SCREEN});
+    this.setState({currentScreen: AppScreen.LIST_SCREEN});
   }
 
 
