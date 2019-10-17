@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Testing for JsTPS Unit Test</title>
+    <script src="./jTPS/jTPS_Transaction.js"></script>
+    <script src="./jTPS/jTPS.js"></script>
+    <script src="./Test/AddToNum_Transaction.js"></script>
+    <script src="./Test/AndMask_Transaction.js"></script>
+    <script src="./Test/OrMask_Transaction.js"></script>
+    <script src="./Test/Num.js"></script>
+    <script src="./Test/jTPS_Unit_Tests.js"></script>
+</head>
+
+<body>
+    <h3>Web results for jUnit tests</h3>
+    <div>Below are the results of all the Junit tests</div>
+    <br></br>
+    <div>testadd() results</div>
+    <br></br>
+    <div>tps = new jTPS()</div>
+    <br></br>
+    <div>num = new Num()</div>
+    <br></br>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id="1"></div>
+
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 5))</div>
+    <div>The expected result of tps.getNum() is: 5</div>
+    <div>Actual Result:</div>
+    <div id="2"></div>
+    <div>The expected result of tps.getSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id="3"></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id="4"></div>
+    <div>The expected result of tps.getUndoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id="5"></div>
+
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 10))</div>
+    <div>The expected result of num.getNum() is: 15</div>
+    <div>Actual Result:</div>
+    <div id="6"></div>
+    <div>The expected result of tps.getSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id="7"></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='8'></div>
+    <div>The expected result of tps.UndoRedoSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id='9'></div>
+
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 20))</div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id="10"></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id="11"></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='12'></div>
+    <div>The expected result of tps.UndoRedoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='13'></div>
+    <br></br>
+
+    <div>testAndMask method results</div>
+    <br></br>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='14'></div>
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 12))</div>
+    <div>tps.addTransaction(new AndMask_Transaction(num, num.getNum(), 4))</div>
+    <div>The expected result of num.getNum() is: 4</div>
+    <div>Actual Result:</div>
+    <div id='15'></div>
+    <div>The expected result of tps.getSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id='16'></div>
+
+    <div>tps.undoTransaction()</div>
+    <div>The expected result of num.getNum() is: 12</div>
+    <div>Actual Result:</div>
+    <div id="17"></div>
+    <div>The expected result of tps.getSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id="18"></div>
+    <div>The expected result of tps.getRedoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id='19'></div>
+    <div>The expected result of tps.UndoRedoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id='20'></div>
+    <br></br>
+
+    <div>Test Undo functionality</div>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='21'></div>
+    <div>The expected result of tps.hasTransactionToUndo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='22'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='23'></div>
+    <br></br>
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 5))</div>
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 10))</div>
+    <div>tps.addTransaction(new AddToNum_Transaction(num, 20))</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='24'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='25'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='26'></div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='27'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='28'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='29'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='30'></div>
+    <br></br>
+
+    <div>tps.undoTransaction()</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='31'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='32'></div>
+    <div>The expected result of num.getNum() is: 15</div>
+    <div>Actual Result:</div>
+    <div id='33'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='34'></div>
+    <div>The expected result of tps.getRedoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id='35'></div>
+    <div>The expected result of tps.getUndoSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id='36'></div>
+    <br></br>
+
+    <div>tps.undoTransaction()</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='37'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='38'></div>
+    <div>The expected result of num.getNum() is: 5</div>
+    <div>Actual Result:</div>
+    <div id='39'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='40'></div>
+    <div>The expected result of tps.getRedoSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id='41'></div>
+    <div>The expected result of tps.getUndoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id='42'></div>
+    <br></br>
+
+    <div>tps.undoTransaction()</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='43'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='44'></div>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='45'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='46'></div>
+    <div>The expected result of tps.getRedoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='47'></div>
+    <div>The expected result of tps.getUndoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='48'></div>
+    <br></br>
+
+    <div>tps.undoTransaction()</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='49'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='50'></div>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='51'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='52'></div>
+    <div>The expected result of tps.getRedoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='53'></div>
+    <div>The expected result of tps.getUndoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='54'></div>
+    <br></br>
+
+    <div>Tests for the testRedo method</div>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='55'></div>
+    <br></br>
+    <div>add 3 transactions (5, 10, and 15)</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='56'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='57'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='58'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='59'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='60'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='61'></div>
+    <br></br>
+
+    <div>Undo a transaction and then redo it</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='62'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='63'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='64'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='65'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='66'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='67'></div>
+    <br></br>
+
+    <div>Undo two transactions and then redo them </div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='68'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='69'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='70'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='71'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='72'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='73'></div>
+    <br></br>
+    
+    <div>Undo all three transactions and then redo them </div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='74'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='75'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='76'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='77'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='78'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='79'></div>
+    <br></br>
+
+    <div>Undo all three transactions and redo 2</div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='80'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='81'></div>
+    <div>The expected result of num.getNum() is: 15</div>
+    <div>Actual Result:</div>
+    <div id='82'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='83'></div>
+    <div>The expected result of tps.getRedoSize() is: 1</div>
+    <div>Actual Result:</div>
+    <div id='84'></div>
+    <div>The expected result of tps.getUndoSize() is: 2</div>
+    <div>Actual Result:</div>
+    <div id='85'></div>
+    <br></br>
+
+    <div>Undo all three transactions and redo 4 </div>
+    <div>The expected result of tps.hasTransactionToUndo() is: true</div>
+    <div>Actual Result:</div>
+    <div id='86'></div>
+    <div>The expected result of tps.hasTransactionToRedo() is: false</div>
+    <div>Actual Result:</div>
+    <div id='87'></div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='88'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='89'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='90'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='91'></div>
+    <br></br>
+
+    <div>This Junit test is for testing clearing of transactions</div>
+    <div>The expected result of num.getNum() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='92'></div>
+    <br></br>
+
+    <div>Add 3 transactions (5, 10, and 15)</div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='93'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='94'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='95'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='96'></div>
+    <br></br>
+
+    <div>Clear all the transactions</div>
+    <div>The expected result of num.getNum() is: 35</div>
+    <div>Actual Result:</div>
+    <div id='97'></div>
+    <div>The expected result of tps.getSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='98'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='99'></div>
+    <div>The expected result of tps.getUndoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='100'></div>
+    <br></br>
+
+    <div>Add 3 transactions (5, 10, 20)</div>
+    <div>The expected result of num.getNum() is: 70</div>
+    <div>Actual Result:</div>
+    <div id='101'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='102'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='103'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='104'></div>
+    <br></br>
+
+    <div>Clear them all out again</div>
+    <div>The expected result of num.getNum() is: 70</div>
+    <div>Actual Result:</div>
+    <div id='105'></div>
+    <div>The expected result of tps.getSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='106'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='107'></div>
+    <div>The expected result of tps.getUndoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='108'></div>
+    <br></br>
+
+    
+    <div>Add 3 transactions (5,10,20)</div>
+    <div>The expected result of num.getNum() is: 105</div>
+    <div>Actual Result:</div>
+    <div id='109'></div>
+    <div>The expected result of tps.getSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='110'></div>
+    <div>The expected result of tps.getRedoSize() is: 0</div>
+    <div>Actual Result:</div>
+    <div id='111'></div>
+    <div>The expected result of tps.getUndoSize() is: 3</div>
+    <div>Actual Result:</div>
+    <div id='112'></div>
+    <br></br>
+
+
+
+</body>
+
+
+</html>
